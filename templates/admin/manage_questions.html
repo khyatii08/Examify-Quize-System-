@@ -1,0 +1,127 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Manage Questions{% endblock %}
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Manage Questions</h2>
+
+<!-- ================= ADD QUESTION FORM ================= -->
+<div style="background:#ffffff; padding:25px; border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08); margin-bottom:30px;">
+
+  <form method="POST">
+
+    <!-- Subject Select -->
+    <div style="margin-bottom:20px;">
+      <label style="font-weight:600; display:block; margin-bottom:6px;">Subject</label>
+      <select name="subject_id" required
+              style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+        <option value="">Select Subject</option>
+        {% for subject in subjects %}
+        <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Question Input -->
+    <div style="margin-bottom:20px;">
+      <label style="font-weight:600; display:block; margin-bottom:6px;">Question</label>
+      <input type="text" name="question" placeholder="Enter the question here" required
+             style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+    </div>
+
+    <!-- Options -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <input type="text" name="option1" placeholder="Option 1" required
+               style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="option2" placeholder="Option 2" required
+               style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="option3" placeholder="Option 3" required
+               style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="option4" placeholder="Option 4" required
+               style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+      </div>
+    </div>
+
+    <!-- Correct Answer -->
+    <div style="margin-bottom:20px;">
+      <label style="font-weight:600; display:block; margin-bottom:6px;">
+        Correct Answer
+      </label>
+      <input type="text" 
+             name="correct_answer" 
+             placeholder="Enter correct answer exactly as written in options"
+             required
+             style="padding:10px 15px; width:100%; border-radius:6px; border:1px solid #ccc;">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" 
+            style="padding:10px 18px; width:50%;" 
+            class="btn btn-success">
+      + Add Question
+    </button>
+
+  </form>
+</div>
+
+
+<!-- ================= QUESTIONS TABLE ================= -->
+<div style="background:#ffffff; padding:20px; border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+
+  <table style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr style="background:#f8f9fa;">
+        <th style="padding:12px; border-bottom:2px solid #eee;">ID</th>
+        <th style="padding:12px; border-bottom:2px solid #eee;">Subject</th>
+        <th style="padding:12px; border-bottom:2px solid #eee;">Question</th>
+        <th style="padding:12px; border-bottom:2px solid #eee;">Correct Answer</th>
+        <th style="padding:12px; border-bottom:2px solid #eee; text-align:center;">
+          Actions
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for q in questions %}
+      <tr>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ q.id }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ q.subject_name }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ q.question }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+          {{ q.correct_answer }}
+        </td>
+
+        <!-- ✅ HORIZONTAL BUTTONS -->
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+          <div style="display:flex; gap:10px; justify-content:center;">
+            
+            <a href="{{ url_for('edit_question', question_id=q.id) }}" 
+               class="btn btn-warning btn-sm">
+               Edit
+            </a>
+
+            <a href="{{ url_for('delete_question', question_id=q.id) }}" 
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Delete this question?')">
+               Delete
+            </a>
+
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+
+</div>
+
+{% endblock %}

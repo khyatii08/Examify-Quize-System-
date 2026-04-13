@@ -1,0 +1,45 @@
+{% extends "admin/base.html" %}
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Edit Subject</h2>
+
+<div style="background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.08);
+            max-width:400px;">
+
+    <form method="POST">
+
+        <div style="margin-bottom:18px;">
+            <label style="display:block; margin-bottom:6px;">
+                Subject Name
+            </label>
+
+            <input type="text"
+                   name="subject_name"
+                   value="{{ subject.subject_name }}"
+                   required
+                   style="width:100%;
+                          padding:10px;
+                          border:1px solid #ccc;
+                          border-radius:6px;
+                          height:40px;">
+        </div>
+
+        <div style="margin-top:10px;">
+            <button class="btn btn-success" style="margin-right:8px;">
+                Update Subject
+            </button>
+
+            <a href="{{ url_for('manage_subjects') }}"
+               class="btn btn-danger">
+               Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

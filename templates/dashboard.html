@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Examify{% endblock %}
+
+{% block content %}
+<div class="container mt-5 position-relative">
+
+    <!-- Accent floating circles -->
+    <div class="floating-accent" style="top:10%; left:5%; width:80px; height:80px; background:#e0f7fa;"></div>
+    <div class="floating-accent" style="top:60%; right:10%; width:100px; height:100px; background:#ffebee;"></div>
+
+    <h3 class="text-center mb-5 fw-bold" style="color: #0D3B66;">Select Your Assessment</h3>
+
+    <div class="row justify-content-center">
+        {% if subjects %}
+            {% for subject in subjects %}
+                <div class="col-md-4 mb-4">
+                    <div class="card subject-card p-4 text-center shadow-sm rounded-4 h-100 position-relative">
+                        <div class="subject-icon mb-3">📘</div>
+                        <h5 class="mb-3 fw-semibold subject-title">{{ subject.subject_name }}</h5>
+                        <a href="{{ url_for('start_exam', subject_id=subject.id) }}" class="btn btn-primary w-100 mt-3">
+                            Start Assessment
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <h5 class="text-center text-muted">No Subjects Found</h5>
+            </div>
+            <a href="{{ url_for('history') }}" class="btn btn-info">
+    View My Exam History
+</a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+/* Subject card style */
+.subject-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    background: white;
+}
+.subject-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    background: linear-gradient(135deg, #f0f4f8, #e0e7ef);
+}
+.subject-card:hover .subject-title {
+    transform: scale(1.05);
+    color: #0D3B66;
+}
+.subject-icon {
+    font-size: 30px;
+    transition: transform 0.3s ease;
+}
+.subject-card:hover .subject-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Buttons hover */
+.btn-primary {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Floating accent circles */
+.floating-accent {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    z-index: -1;
+    animation: floatAccent 8s ease-in-out infinite;
+}
+@keyframes floatAccent {
+    0%, 100% { transform: translateY(0) rotate(0deg);}
+    50% { transform: translateY(-10px) rotate(10deg);}
+}
+
+@media (max-width: 767px) {
+    h3 { font-size: 1.75rem; }
+    .btn { font-size: 0.95rem; padding: 0.6rem 1rem; }
+}
+</style>
+{% endblock %}

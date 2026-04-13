@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}My Exam History{% endblock %}
+
+{% block content %}
+
+<style>
+.history-outer-wrapper{
+margin:-20px;
+}
+
+.history-header{
+background:linear-gradient(135deg,#141e30,#243b55);
+padding:1.5rem 2rem;
+color:white;
+border-radius:15px 15px 0 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.table-custom{
+width:100%;
+margin-bottom:0;
+}
+
+.table-custom thead th{
+background:#f4f6f9;
+color:#243b55;
+font-weight:700;
+border-bottom:2px solid #dee2e6;
+padding:1rem;
+text-transform:uppercase;
+font-size:0.8rem;
+letter-spacing:0.5px;
+}
+
+.table-custom tbody tr{
+transition:0.2s;
+}
+
+.table-custom tbody tr:hover{
+background:rgba(255,193,7,0.05);
+}
+
+.table-custom tbody td{
+padding:1rem;
+vertical-align:middle;
+border-top:1px solid #eee;
+}
+
+.subject-name{
+font-weight:600;
+color:#141e30;
+}
+
+.score-text{
+font-family:'Courier New',monospace;
+font-weight:700;
+color:#243b55;
+}
+
+.btn-view{
+background:#ffc107;
+color:#141e30;
+border-radius:50px;
+font-size:0.8rem;
+font-weight:600;
+padding:5px 15px;
+transition:0.3s;
+}
+
+.btn-view:hover{
+background:#ffca2c;
+transform:scale(1.05);
+}
+
+.footer-actions{
+padding:1.5rem;
+text-align:center;
+border-top:1px solid #eee;
+}
+
+.btn-dashboard{
+background:transparent;
+color:#243b55;
+border:2px solid #243b55;
+border-radius:50px;
+padding:8px 20px;
+font-weight:600;
+}
+
+.btn-dashboard:hover{
+background:#243b55;
+color:white;
+}
+</style>
+
+
+<div class="history-outer-wrapper">
+
+<div class="history-header">
+<h2 class="h4 mb-0">My Exam History</h2>
+<span class="badge bg-warning text-dark">{{ results|length }} Records</span>
+</div>
+
+
+<div class="table-responsive">
+<table class="table table-custom">
+
+<thead>
+<tr>
+<th>Subject</th>
+<th class="text-center">Score</th>
+<th class="text-center">%</th>
+<th>Date</th>
+<th class="text-center">Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for r in results %}
+
+<tr>
+
+<td class="subject-name">{{ r.subject_name }}</td>
+
+<td class="text-center score-text">
+{{ r.score }}/{{ r.total }}
+</td>
+
+<td class="text-center">
+{{ r.percentage }}%
+</td>
+
+<td>
+{{ r.exam_date }}
+</td>
+
+<td class="text-center">
+
+<a href="{{ url_for('result_page', result_id=r.id) }}" class="btn btn-view">
+View
+</a>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+<td colspan="5" class="text-center text-muted py-5">
+No exam records found
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+
+<div class="footer-actions">
+
+{% if results %}
+
+<a href="{{ url_for('result_page', result_id=results[0].id) }}" class="btn btn-dashboard">
+← Back to Results
+</a>
+
+{% else %}
+
+<a href="{{ url_for('dashboard') }}" class="btn btn-dashboard">
+← Back to Dashboard
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% endblock %}

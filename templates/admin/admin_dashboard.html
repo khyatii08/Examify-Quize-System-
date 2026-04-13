@@ -1,0 +1,161 @@
+{% extends "admin/base.html" %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4 dashboard-title">
+    Welcome, {{ session['admin'] }} 👋
+</h2>
+
+<div class="cards">
+
+    <div class="dashboard-card">
+        <div class="icon">👤</div>
+        <h4>Total Users</h4>
+        <p>{{ total_users }}</p>
+        <span class="card-desc">Registered system users</span>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icon">📚</div>
+        <h4>Total Subjects</h4>
+        <p>{{ total_subjects }}</p>
+        <span class="card-desc">Available subjects</span>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icon">❓</div>
+        <h4>Total Questions</h4>
+        <p>{{ total_questions }}</p>
+        <span class="card-desc">Questions in database</span>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icon">📞</div>
+        <h4>Manage Contacts</h4>
+        <p>{{ total_contacts }}</p>
+        <span class="card-desc">User messages & inquiries</span>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="icon">📊</div>
+        <h4>Manage Results</h4>
+        <p>{{ total_results }}</p>
+        <span class="card-desc">Exam scores & reports</span>
+    </div>
+
+</div>
+
+<br><br>
+
+<div class="overview-card">
+    <h3>System Overview</h3>
+    <p>
+        The admin dashboard provides centralized control over the entire examination system.
+        You can monitor user registrations, manage subjects, and maintain the question bank.
+    </p>
+
+    <ul class="overview-list">
+        <li>✔ Manage registered users</li>
+        <li>✔ Add or update subjects</li>
+        <li>✔ Maintain question database</li>
+        <li>✔ Manage contacts and inquiries</li>
+        <li>✔ Monitor results and scores</li>
+    </ul>
+
+    <p>
+        This panel ensures organized data handling and efficient system administration.
+    </p>
+</div>
+
+<style>
+/* Title */
+.dashboard-title {
+    color: #141e30;
+    font-weight: 600;
+}
+
+/* Cards Container */
+.cards {
+    display: flex;
+    gap: 18px;       /* smaller gap */
+    flex-wrap: wrap;
+}
+
+/* Cards */
+.dashboard-card {
+    flex: 1 1 180px; /* smaller min-width for compact layout */
+    max-width: 220px;
+    padding: 20px 15px;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    background: #eef2f7;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+/* Icon */
+.icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+/* Card Title */
+.dashboard-card h4 {
+    margin: 0;
+    color: #444;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Card Number */
+.dashboard-card p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #141e30;
+}
+
+/* Card Description */
+.card-desc {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* Colored Overview Block */
+.overview-card {
+    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+    color: #0f172a;
+    border-left: 6px solid #0284c7;
+}
+
+/* Overview List */
+.overview-list {
+    margin-top: 12px;
+    padding-left: 18px;
+}
+
+.overview-list li {
+    margin-bottom: 6px;
+    color: #1e293b;
+}
+
+h2, h3, h4 {
+    letter-spacing: 0.5px;
+}
+</style>
+
+{% endblock %}

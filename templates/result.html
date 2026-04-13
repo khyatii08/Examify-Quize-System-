@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Exam Result{% endblock %}
+
+{% block content %}
+<style>
+    /* 1. Box ne Nano (Compact) karva */
+    .card-custom {
+        max-width: 450px; /* Box ni width mari limit */
+        margin: 40px auto; /* Box ne center karava */
+        padding: 0 !important; /* AA wrapper no padding kado */
+        overflow: hidden;
+    }
+
+    .result-header {
+        background: linear-gradient(135deg, #141e30, #243b55);
+        color: white;
+        padding: 1.5rem; /* Thoda nano padding */
+        text-align: center;
+    }
+
+    .result-body {
+        padding: 0 1.5rem 1.5rem; /* Thoda nano padding */
+        text-align: center;
+        background: white;
+    }
+
+    /* Score Circle - Nano */
+    .score-display {
+        width: 110px; /* Nano circle */
+        height: 110px;
+        border-radius: 50%;
+        background: white;
+        border: 5px solid #ffc107; /* Theme Yellow */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: -55px auto 15px auto; /* Overlap effect */
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .score-value {
+        font-size: 2rem; /* Nano font */
+        font-weight: 700;
+        color: #243b55;
+        line-height: 1;
+    }
+
+    .score-label {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    /* Status Badge */
+    .status-badge {
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem; /* Nano font */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .status-pass {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.2);
+    }
+
+    .status-fail {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, 0.2);
+    }
+
+    /* Details List */
+    .detail-list {
+        text-align: left;
+        background: #f4f6f9;
+        border-radius: 8px;
+        padding: 12px; /* Nano padding */
+        margin-bottom: 15px;
+        font-size: 0.9rem; /* Nano font */
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dashed #dee2e6;
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .detail-value {
+        font-weight: 600;
+        color: #243b55;
+    }
+
+    /* Theme Buttons - Nano */
+    .btn-action {
+        border-radius: 50px;
+        padding: 8px 16px; /* Nano padding */
+        font-weight: 500;
+        font-size: 0.85rem;
+        margin: 3px;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .btn-theme-primary {
+        background: #243b55;
+        color: white;
+    }
+    
+    .btn-theme-primary:hover {
+        background: #141e30;
+        color: #ffc107;
+        transform: translateY(-2px);
+    }
+
+    .btn-theme-outline {
+        background: transparent;
+        color: #243b55;
+        border: 1px solid #243b55;
+    }
+
+    .btn-theme-outline:hover {
+        background: #243b55;
+        color: white;
+    }
+</style>
+
+<!-- Wrapper (No margin -20px needed as card-custom padding is 0) -->
+<div class="result-wrapper">
+    <!-- Header Section -->
+    <div class="result-header">
+        <h1 class="h5 mb-1">Exam Result</h1>
+        <h2 class="h6 font-weight-normal opacity-9 mb-0">{{ result.subject_name }}</h2>
+    </div>
+
+    <!-- Body Section -->
+    <div class="result-body">
+        
+        <!-- Score Circle -->
+        <div class="score-display">
+            <span class="score-value">{{ result.percentage }}%</span>
+            <span class="score-label">Score</span>
+        </div>
+
+        <!-- Status Badge -->
+        {% if result.percentage >= 40 %}
+            <div class="status-badge status-pass">
+                &#10004; PASS
+            </div>
+        {% else %}
+            <div class="status-badge status-fail">
+                &#10006; FAIL
+            </div>
+        {% endif %}
+
+        <!-- Details List -->
+        <div class="detail-list">
+            <div class="detail-item">
+                <span class="detail-label">Subject</span>
+                <span class="detail-value">{{ result.subject_name }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Score</span>
+                <span class="detail-value">{{ result.score }} / {{ result.total }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date</span>
+                <span class="detail-value">{{ result.exam_date }}</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex flex-wrap justify-content-center">
+            {% if result.percentage >= 40 %}
+                <a href="{{ url_for('certificate', result_id=result.id) }}" class="btn btn-theme-primary btn-action">
+                    Certificate
+                </a>
+            {% endif %}
+
+            <a href="{{ url_for('history') }}" class="btn btn-theme-outline btn-action">
+                History
+            </a>
+
+            <a href="{{ url_for('dashboard') }}" class="btn btn-theme-outline btn-action">
+                Dashboard
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Manage Results{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Manage Exam Results</h2>
+
+<div style="background:#ffffff; 
+            padding:20px; 
+            border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08); 
+            overflow-x:auto;">
+
+<table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">#</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Student Name</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Subject</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Score</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Percentage</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Date</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Status</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Certificate</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Action</th>
+    </tr>
+
+    {% for r in results %}
+    <tr>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ loop.index }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ r.username }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ r.subject_name }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ r.score }} / {{ r.total }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ ((r.score / r.total * 100) | round(2)) }}%</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ r.exam_date.strftime('%d-%m-%Y') }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+            {% set pct = (r.score / r.total * 100) %}
+            {% if pct >= 50 %}
+                <span class="btn btn-success" style="padding:3px 8px; border-radius:5px;">Pass</span>
+            {% else %}
+                <span class="btn btn-danger" style="padding:3px 8px; border-radius:5px;">Fail</span>
+            {% endif %}
+        </td>
+        <td style="padding:12px; border-bottom:1px solid hsl(0, 0%, 93%);">
+<a href="{{ url_for('admin_certificate', result_id=r.id) }} "class="btn btn-success">
+    View 
+</a>
+        </td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+            
+            <a href="{{ url_for('delete_result', result_id=r.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="9" style="text-align:center; padding:12px;">No results found.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div style="margin-top:15px; text-align:right;">
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning" style="margin-right:8px;">Back to Dashboard</a>
+    <a href="{{ url_for('add_result') }}" class="btn btn-success">Add New Result</a>
+</div>
+
+</div>
+
+{% endblock %}

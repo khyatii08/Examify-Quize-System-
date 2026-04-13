@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            display: flex;
+            background: #f4f6f9;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: linear-gradient(135deg,#141e30,#243b55);
+            color: white;
+            position: fixed;
+            padding-top: 25px;
+            box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 14px 25px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            margin: 5px 10px;
+            transition: 0.3s;
+        }
+        
+
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }.sidebar a.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid #ffcc00;
+        }
+
+        .sidebar .logout {
+            color: #ff6b6b;
+        }
+        .sidebar .logout:hover {
+            background: #c0392b;
+            transform: translateX(5px);
+        }
+
+        /* ===== Main Content ===== */
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            min-height: 100vh;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .navbar h3 {
+            margin: 0;
+            font-weight: 600;
+            color: #141e30;
+        }
+
+        .welcome {
+            font-weight: 500;
+            color: #243b55;
+        }
+
+        /* Content Padding */
+        .content {
+            padding: 30px;
+        }
+
+        /* Cards */
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            width: 220px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .card h4 {
+            margin: 0;
+            color: #555;
+        }
+
+        .card p {
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #141e30;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        table th, table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        table th {
+            background: #f0f4f8;
+            font-weight: 600;
+            color: #141e30;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+
+        /* Optional subtle floating accents behind cards */
+        .floating-accent {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: -1;
+            animation: floatAccent 8s ease-in-out infinite;
+        }
+
+        @keyframes floatAccent {
+            0%, 100% { transform: translateY(0) rotate(0deg);}
+            50% { transform: translateY(-10px) rotate(10deg);}
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+
+    <a href="{{ url_for('admin_dashboard') }}">🏠 Dashboard</a>
+    <a href="{{ url_for('manage_users') }}">👤 Manage Users</a>
+    <a href="{{ url_for('manage_subjects') }}">📚 Manage Subjects</a>
+    <a href="{{ url_for('manage_questions') }}">❓Manage Questions</a>
+    <a href="{{ url_for('manage_contacts') }}">📞 Manage Contacts</a>
+     <a href="{{ url_for('manage_results') }}">📊  Manage Results</a>
+    <a href="{{ url_for('admin_logout') }}" class="logout">🚪 Logout</a>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main">
+
+    <!-- Top Navbar -->
+    <div class="navbar">
+        <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+        <div class="welcome">
+            Welcome, {{ session['admin'] }}
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content position-relative">
+        <!-- Example floating accent -->
+        <div class="floating-accent" style="top:20px; left:30px; width:60px; height:60px; background:#ffcc00;"></div>
+        <div class="floating-accent" style="top:150px; right:50px; width:80px; height:80px; background:#00bcd4;"></div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

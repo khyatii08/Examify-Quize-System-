@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <h1 class="text-center fw-bold mb-5" style="color: #0D3B66;">Contact Us</h1>
+
+    <div class="row justify-content-center g-4">
+
+        <!-- Left Block: Contact Info -->
+        <div class="col-lg-5">
+            <div class="card contact-card shadow rounded-4 h-100" style="background: linear-gradient(135deg, #6FB1FC 0%, #E3F2FD 100%); color: #0D3B66; padding: 40px;">
+                <h4 class="fw-bold mb-4">Get in Touch</h4>
+                
+                <div class="d-flex align-items-start mb-3">
+                    <i class="fas fa-map-marker-alt fa-lg me-3 mt-1"></i>
+                    <div>
+                        <p class="mb-0 fw-semibold">Address</p>
+                        <p>609, Shivalay, Nr. Ashirwad Hospital, Mavdi Circle, 150Ft. Ring Rd, Rajkot – 360004.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-3">
+                    <i class="fas fa-phone fa-lg me-3 mt-1"></i>
+                    <div>
+                        <p class="mb-0 fw-semibold">Phone</p>
+                        <p>+91 9023993748</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start">
+                    <i class="fas fa-envelope fa-lg me-3 mt-1"></i>
+                    <div>
+                        <p class="mb-0 fw-semibold">Email</p>
+                        <p>ashokbhaichauhan086@gmail.com</p>
+                    </div>
+                </div>
+
+                <p class="mt-4" style="opacity: 0.85;">We are here to answer your questions and provide support. Reach out to us anytime, and we’ll get back to you as soon as possible.</p>
+            </div>
+        </div>
+
+        <!-- Right Block: Contact Form -->
+        <div class="col-lg-6">
+            <div class="card contact-card shadow rounded-4 p-4 h-100 bg-white">
+                <form method="POST" action="{{ url_for('contact') }}">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-semibold" style="color: #0D3B66;">Name</label>
+                        <input type="text" id="name" name="name" class="form-control rounded-pill border-1 shadow-sm" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold" style="color: #0D3B66;">Email</label>
+                        <input type="email" id="email" name="email" class="form-control rounded-pill border-1 shadow-sm" placeholder="yourname@example.com" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-semibold" style="color: #0D3B66;">Message</label>
+                        <textarea id="message" name="message" rows="5" class="form-control rounded-3 border-1 shadow-sm" placeholder="Type your message here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn w-100 fw-semibold py-2 rounded-pill shadow-sm text-white" 
+                        style="background: linear-gradient(90deg, #0D3B66 0%, #6FB1FC 100%); transition: all 0.3s;">
+                        Send Message
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Font Awesome CDN -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+
+<style>
+/* Hover effect for the blocks */
+.contact-card {
+    transition: all 0.3s ease;
+}
+.contact-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* Hover effect for button */
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Input focus effect */
+input:focus, textarea:focus {
+    border-color: #0D3B66;
+    box-shadow: 0 0 5px rgba(13,59,102,0.3);
+}
+</style>
+
+{% endblock %}

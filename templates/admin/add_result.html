@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add New Result</h2>
+<form method="POST">
+    <label>User:</label>
+    <select name="user_id" required>
+        {% for u in users %}
+            <option value="{{ u.id }}">{{ u.username }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Subject:</label>
+    <select name="subject_id" required>
+        {% for s in subjects %}
+            <option value="{{ s.id }}">{{ s.subject_name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Score:</label>
+    <input type="number" name="score" required><br><br>
+
+    <label>Total:</label>
+    <input type="number" name="total" required><br><br>
+
+    <label>Exam Date:</label>
+    <input type="date" name="exam_date" required><br><br>
+
+    <button type="submit" class="btn btn-success">Add Result</button>
+</form>
+{% endblock %}

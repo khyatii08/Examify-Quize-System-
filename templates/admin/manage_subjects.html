@@ -1,0 +1,63 @@
+{% extends "admin/base.html" %} 
+{% block page_title %}Manage Subject{% endblock %}
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Manage Subjects</h2>
+
+<!-- White Form Box -->
+<div style="background:#ffffff; padding:20px; border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08); margin-bottom:30px;">
+
+<form method="POST" style="display:flex; gap:12px; align-items:center;">
+    
+    <input type="text" 
+           name="subject_name"
+           placeholder="Enter Subject Name"
+           required
+           style="padding:10px 15px; width:250px; border-radius:6px; border:1px solid #ccc;">
+    
+    <button class="btn btn-success" 
+            style="padding:10px 18px;">
+        Add Subject
+    </button>
+
+</form>
+
+</div>
+
+
+<!-- White Table Box -->
+<div style="background:#ffffff; padding:20px; border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+
+<table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">ID</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Subject Name</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Actions</th>
+    </tr>
+
+    {% for subject in subjects %}
+    <tr>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ subject.id }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ subject.subject_name }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+            <a href="{{ url_for('edit_subject', subject_id=subject.id) }}"
+               class="btn btn-warning"
+               style="margin-right:8px;">
+               Edit
+            </a>
+
+            <a href="{{ url_for('delete_subject', subject_id=subject.id) }}"
+               class="btn btn-danger"
+               onclick="return confirm('Delete this subject?')">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+
+{% endblock %}

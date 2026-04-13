@@ -1,0 +1,102 @@
+{% extends "admin/base.html" %}
+{% block content %}
+
+<h2>Manage Contact Messages</h2>
+
+<table class="table table-bordered mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th width="220">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.id }}</td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.message }}</td>
+            <td>{{ contact.created_at }}</td>
+            <td>
+                <!-- Reply Button -->
+                <button class="btn btn-success btn-sm reply-btn"
+                        data-id="{{ contact.id }}">
+                    Reply
+                </button>
+
+                <!-- Delete Button -->
+                <a href="{{ url_for('delete_contact', contact_id=contact.id) }}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">
+                   Delete
+                </a>
+            </td>
+        </tr>
+
+        <!-- Hidden Reply Form -->
+        <tr id="reply-form-{{ contact.id }}" style="display:none;">
+            <td colspan="6">
+                <form method="POST"
+                      action="{{ url_for('reply_contact', contact_id=contact.id) }}">
+                    
+                    <div class="mb-2">
+                        <input type="text" name="subject"
+                               class="form-control"
+                               placeholder="Enter Subject"
+                               required>
+                    </div>
+
+                    <div class="mb-2">
+                        <textarea name="message"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Type your reply..."
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Send Reply
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary btn-sm cancel-btn"
+                            data-id="{{ contact.id }}">
+                        Cancel
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelectorAll(".reply-btn").forEach(function(button){
+        button.addEventListener("click", function(){
+            var id = this.getAttribute("data-id");
+            var row = document.getElementById("reply-form-" + id);
+            row.style.display = "table-row";
+        });
+    });
+
+    document.querySelectorAll(".cancel-btn").forEach(function(button){
+        button.addEventListener("click", function(){
+            var id = this.getAttribute("data-id");
+            var row = document.getElementById("reply-form-" + id);
+            row.style.display = "none";
+        });
+    });
+
+});
+</script>
+
+{% endblock %}

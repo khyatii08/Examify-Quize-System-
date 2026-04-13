@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Edit User{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Edit User</h2>
+
+<div style="background:#ffffff;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+            max-width:500px;">
+
+<form method="POST">
+
+    <div style="margin-bottom:18px;">
+        <label style="display:block; margin-bottom:6px;">
+            Username
+        </label>
+        <input type="text" 
+               name="username"
+               value="{{ user.username }}"
+               class="form-control"
+               style="height:42px;">
+    </div>
+
+    <div style="margin-bottom:20px;">
+        <label style="display:block; margin-bottom:6px;">
+            Email
+        </label>
+        <input type="email" 
+               name="email"
+               value="{{ user.email }}"
+               class="form-control"
+               style="height:42px;">
+    </div>
+
+    <button type="submit" 
+            class="btn btn-success"
+            style="padding:8px 18px;">
+        Update User
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}

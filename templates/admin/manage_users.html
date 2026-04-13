@@ -1,0 +1,45 @@
+{% extends "admin/base.html" %}
+{% block page_title %}Manage Users{% endblock %}
+
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Manage Users</h2>
+
+<div style="background:#ffffff; 
+            padding:20px; 
+            border-radius:10px; 
+            box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+
+<table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">ID</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Username</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Email</th>
+        <th style="text-align:left; padding:12px; border-bottom:2px solid #eee;">Action</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ user.id }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ user.username }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">{{ user.email }}</td>
+        <td style="padding:12px; border-bottom:1px solid #eee;">
+            <a href="{{ url_for('edit_user', user_id=user.id) }}"
+               class="btn btn-warning"
+               style="margin-right:8px;">
+               Edit
+            </a>
+
+            <a href="{{ url_for('delete_user', user_id=user.id) }}"
+               class="btn btn-danger"
+               onclick="return confirm('Are you sure?')">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+
+{% endblock %}
